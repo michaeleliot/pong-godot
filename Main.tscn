@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Main.gd" type="Script" id=4]
+[ext_resource path="res://UI.tscn" type="PackedScene" id=5]
+
+[node name="Node" type="Node"]
+script = ExtResource( 4 )
+
+[node name="PlayerStartPosition" type="Position2D" parent="."]
+position = Vector2( 100, 300 )
+
+[node name="BallStartPosition" type="Position2D" parent="."]
+position = Vector2( 528, 289 )
+
+[node name="EnemyStartPosition" type="Position2D" parent="."]
+position = Vector2( 933, 287 )
+
+[node name="Enemy" parent="." instance=ExtResource( 1 )]
+position = Vector2( 930, 300 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 100, 300 )
+
+[node name="Ball" parent="." instance=ExtResource( 3 )]
+position = Vector2( 565, 320 )
+
+[node name="HUD" parent="." instance=ExtResource( 5 )]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 511.0
+margin_right = 512.0
+margin_bottom = 648.0
+
+[node name="GameBeginTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="start_game" from="HUD" to="." method="reset_game"]
+[connection signal="timeout" from="GameBeginTimer" to="." method="_on_GameBeginTimer_timeout"]
